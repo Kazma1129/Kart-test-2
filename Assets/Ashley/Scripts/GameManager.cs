@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public float HighScore;
 
     public static GameManager Instance;
     private void Awake()
@@ -23,8 +22,5 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(this.gameObject);
         }
 }
-    private void HighScoreOp()
-    {
 
-    }
 }

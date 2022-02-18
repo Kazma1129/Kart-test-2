@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AI;
 
 public class ScoreManager : MonoBehaviour
 {
@@ -10,11 +11,13 @@ public class ScoreManager : MonoBehaviour
     public Text highscoreText;
     public Text counterText;
     //Variables
-    public float Escore = 0;
-    public int highscore = 0;
+    public float highscore = 0;
+    public float timer = 0f;
+    public float ClampTimer = 0f;
+    public float currentScore;
+    // public float escore;
 
-    private float timer = 0f;
-    private float score;
+    public bool plus= false;
 
     private void Awake()
     {
@@ -33,36 +36,59 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
+
+
     void Start()
     {
-        
     }
     void Update()
     {
-        setCounter();
+        ClampTimer += Time.deltaTime;
+        textCounter();
         if (Input.GetKeyDown("space")) //Aqui se va a poner la condición de que acaba una ronda. 
         {
             setScore();
         }
+        timercomp();
 
-        setHighScore();
     }
+
+    //Lo que sucede cuando se da una vuelta. 
     private void setScore()
     {
-        score = timer;
-        ScoreManager.Instance.Escore = score;
+        currentScore = timer;
+        highScoreComparation();
         timer = 0;
     }
-    private void setCounter()
+
+    //Esto siempre va a correr, setea el texto en pantalla
+    private void textCounter()
     {
         timer += Time.deltaTime;
         counterText.text = timer.ToString("f1");
+       
+
     }
 
-    private void setHighScore() {
-        if (highscore < Escore)
+    //Esto solo va a correr cuando se complete una vuelta
+    private void highScoreComparation() {
+        if (currentScore> highscore)
         {
-            highscoreText.text = "HighScore: " + Escore.ToString("f1");
+            highscore = currentScore;
+            highscoreText.text = "HighScore: " + highscore.ToString("f1");
+        }
+    }
+    private void timercomp()
+    {
+        float redondeo = (int)ClampTimer;
+        if ((redondeo/10)==1)
+        {
+            Debug.Log("Sijalo");
+            plus = true;
+        }
+        else
+        {
+            plus = false;
         }
     }
 }
