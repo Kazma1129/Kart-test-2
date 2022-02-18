@@ -52,8 +52,7 @@ public class MovementKart_1 : MonoBehaviour
     {
 
         //Follow Collider // basically attachs the car to the collider
-        //       transform.position = sphere.transform.position - new Vector3(0, 0.4f, 0);//moved this out of the update method because it was causing some weird shaking
-
+             //  transform.position = sphere.transform.position - new Vector3(0, 0.4f, 0);//moved this out of the update method because it was causing some weird shaking
         //Accelerate
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S)) { 
             speed = acceleration;
